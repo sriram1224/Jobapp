@@ -3,7 +3,16 @@ const Jobmodel = require("../models/job");
 
 const createJob = async (req, res) => {
     try {
-         const jobobj = req.body;
+        
+    }
+    catch (error) {
+        
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+        });
+    }
+    const jobobj = req.body;
     const newJob = new Jobmodel(jobobj);
     const newlysavedjob = await newJob.save();
     console.log(newlysavedjob);
@@ -11,20 +20,10 @@ const createJob = async (req, res) => {
         success: true,
         message: 'Job created successfully',
     })
-    }
-    catch (error) {
-        
-        res.json({
-            success: false,
-            message: 'Internal server error',
-        });
-    }
-   
 };
 
 const listJob = async (req, res) => {
-     try {
-        const {minsalary, maxsalary} = req.query;
+    const {minsalary, maxsalary} = req.query;
     const joblist = await Jobmodel.find({
         $and: [{ salary: { $gte: minsalary } }, { salary: { $lte: maxsalary } }],
     });
@@ -34,40 +33,20 @@ const listJob = async (req, res) => {
         message: 'Job listed successfully',
         result: joblist,
     })
-    }
-    catch (error) {
-        
-        res.json({
-            success: false,
-            message: 'Internal server error',
-        });
-    }
-    
 };
 const editJob = async (req, res) => {
-     try {
-         const jobId = req.params.id;
-    
+    const jobId = req.params.id;
+    console.log(jobId);
    await Jobmodel.findByIdAndUpdate(jobId, req.body);
        
     res.json({
         success: true,
         message: 'Job edited successfully',
     })
-    }
-    catch (error) {
-        
-        res.json({
-            success: false,
-            message: 'Internal server error',
-        });
-    }
-   
 };
 
 const deleteJob = async (req, res) => { 
-     try {
-        const jobId = req.params.id;
+    const jobId = req.params.id;
     await Jobmodel.findByIdAndDelete(jobId);
 
     res.json({ 
@@ -75,15 +54,6 @@ const deleteJob = async (req, res) => {
         message: 'Job deleted successfully',
 
     })
-    }
-    catch (error) {
-        
-        res.json({
-            success: false,
-            message: 'Internal server error',
-        });
-    }
-    
 }
 
 const jobController = {

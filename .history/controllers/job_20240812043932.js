@@ -45,29 +45,18 @@ const listJob = async (req, res) => {
     
 };
 const editJob = async (req, res) => {
-     try {
-         const jobId = req.params.id;
-    
+    const jobId = req.params.id;
+    console.log(jobId);
    await Jobmodel.findByIdAndUpdate(jobId, req.body);
        
     res.json({
         success: true,
         message: 'Job edited successfully',
     })
-    }
-    catch (error) {
-        
-        res.json({
-            success: false,
-            message: 'Internal server error',
-        });
-    }
-   
 };
 
 const deleteJob = async (req, res) => { 
-     try {
-        const jobId = req.params.id;
+    const jobId = req.params.id;
     await Jobmodel.findByIdAndDelete(jobId);
 
     res.json({ 
@@ -75,15 +64,6 @@ const deleteJob = async (req, res) => {
         message: 'Job deleted successfully',
 
     })
-    }
-    catch (error) {
-        
-        res.json({
-            success: false,
-            message: 'Internal server error',
-        });
-    }
-    
 }
 
 const jobController = {
