@@ -4,7 +4,6 @@ const jobroutes = require('./routes/job.js');
 const { mongoose } = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
-console.log(process.env.DB_CONNECTION_URL);
 
 const app = express();
 app.use(express.json());
